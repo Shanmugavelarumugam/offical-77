@@ -1,0 +1,36 @@
+.ui-section-title-wrapper {
+  margin-bottom: 4rem;
+  max-width: 800px;
+}
+
+.ui-section-title-wrapper.text-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.ui-section-subtitle {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.ui-section-title {
+  margin-bottom: 1rem;
+}
+
+.ui-section-decorator {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+  border-radius: 2px;
+}
+
+.ui-section-title-wrapper.text-center .ui-section-decorator {
+  margin-left: auto;
+  margin-right: auto;
+}

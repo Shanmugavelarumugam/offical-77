@@ -1,0 +1,78 @@
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.3s ease-in-out, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--color-accent-primary);
+  box-shadow: 0 0 10px var(--color-accent-primary);
+}
+
+.cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(255, 42, 42, 0.5);
+  transition: transform 0.15s ease-out, opacity 0.3s ease, width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+  /* Add slight delay so it trails behind the dot */
+  transition-delay: 0s, 0s, 0s, 0s, 0s;
+}
+
+/* States */
+.cursor-dot.hidden,
+.cursor-ring.hidden {
+  opacity: 0;
+}
+
+.cursor-ring.clicked {
+  transform: translate(-50%, -50%) scale(0.8);
+  background-color: rgba(255, 42, 42, 0.1);
+}
+
+.cursor-ring.hovered {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(255, 42, 42, 0.1);
+  border-color: rgba(255, 42, 42, 0.8);
+  transform: translate(-50%, -50%) scale(1.2);
+  mix-blend-mode: screen;
+}
+
+.cursor-dot.hovered {
+  transform: translate(-50%, -50%) scale(0.5);
+}
+
+/* Hide native cursor across the whole body */
+body {
+  cursor: none;
+}
+
+/* Ensure links/buttons don't show the hand cursor, our custom one handles it */
+a, button, input, select, textarea, .card-clickable {
+  cursor: none;
+}
+
+/* Disable on mobile devices */
+@media (max-width: 1024px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+  
+  body, 
+  a, button, input, select, textarea, .card-clickable {
+    cursor: auto;
+  }
+  
+  a, button, .card-clickable {
+    cursor: pointer;
+  }
+}

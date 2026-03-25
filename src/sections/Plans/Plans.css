@@ -1,0 +1,144 @@
+.plans {
+  background-color: var(--color-bg-base);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Ambient Glow */
+.plans-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(255, 42, 42, 0.05) 0%, rgba(10, 10, 10, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+@media (min-width: 768px) {
+  .plans-grid {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center; /* This ensures non-popular cards are vertically centered next to the taller popular card */
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .plans-grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    gap: 2.5rem;
+  }
+}
+
+.plan-card {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 2rem;
+  border-radius: var(--radius-xl);
+}
+
+.plan-card.popular {
+  border: 2px solid var(--color-accent-primary);
+  background: linear-gradient(180deg, var(--color-bg-surface-light) 0%, var(--color-bg-surface) 100%);
+  transform: scale(1);
+  box-shadow: var(--shadow-glow);
+}
+
+@media (min-width: 768px) {
+  .plan-card.popular {
+    transform: scale(1.05); /* Make popular card slightly larger on desktop */
+    z-index: 10;
+  }
+  
+  .plan-card.popular:hover {
+    transform: scale(1.08); /* Enhance hover effect considering base scale */
+  }
+}
+
+.popular-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--color-accent-primary);
+  color: #fff;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  box-shadow: var(--shadow-glow);
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.plan-price-wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.plan-price {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1;
+}
+
+.plan-period {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.plan-desc {
+  font-size: 0.95rem;
+}
+
+.plan-features {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 3rem;
+  flex: 1;
+}
+
+.plan-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.feature-check {
+  color: var(--color-accent-primary);
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}

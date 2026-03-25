@@ -1,0 +1,21 @@
+.ui-card {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.solid-panel {
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  border-color: var(--color-accent-glow);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--color-accent-glow);
+}
+
+.card-clickable {
+  cursor: pointer;
+}
