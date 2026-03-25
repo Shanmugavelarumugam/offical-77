@@ -38,6 +38,10 @@
   gap: 0.75rem;
   z-index: 1001;
   transition: transform 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .navbar-logo:hover {
@@ -81,6 +85,10 @@
   padding: 0.6rem 1.2rem;
   border-radius: 100px;
   transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .nav-link::before {
@@ -172,6 +180,10 @@
   transform: translateY(30px);
   transition: all 0.3s ease;
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .mobile-nav-link::after {

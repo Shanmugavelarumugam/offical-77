@@ -6,19 +6,19 @@ import './Navbar.css';
 import { cx } from '../../utils/helpers';
 
 const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Programs', href: '#programs' },
-  { name: 'Plans', href: '#plans' },
-  { name: 'Trainers', href: '#trainers' },
-  { name: 'Gallery', href: '#gallery' },
+  { name: 'Home', id: 'home' },
+  { name: 'About', id: 'about' },
+  { name: 'Programs', id: 'programs' },
+  { name: 'Plans', id: 'plans' },
+  { name: 'Trainers', id: 'trainers' },
+  { name: 'Gallery', id: 'gallery' },
 ];
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('#home');
+  const [activeLink, setActiveLink] = useState('home');
   const lastScrollY = useRef(0);
 
   useEffect(() => {
@@ -36,14 +36,14 @@ const Navbar = () => {
       setIsScrolled(currentScrollY > 20);
       
       // Update active link based on scroll position
-      const sections = navLinks.map(link => link.href.substring(1));
+      const sections = navLinks.map(link => link.id);
       
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
           if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveLink(`#${section}`);
+            setActiveLink(section);
             break;
           }
         }
@@ -54,30 +54,42 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setActiveLink(id);
+  };
+
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const handleNavClick = (id) => {
+    scrollToSection(id);
+    closeMobileMenu();
   };
 
   return (
     <nav className={cx('navbar', isScrolled && 'navbar-scrolled', !isVisible && 'navbar-hidden', 'glass-panel')}>
       <Container className="navbar-container">
         {/* Logo */}
-        <a href="#home" className="navbar-logo" onClick={closeMobileMenu}>
+        <button className="navbar-logo" onClick={() => scrollToSection('home')}>
           <Dumbbell className="logo-icon text-gradient" size={32} />
           <span className="logo-text">77 FITNESS</span>
-        </a>
+        </button>
 
         {/* Desktop Navigation */}
         <div className="navbar-links desktop-only">
           {navLinks.map((link) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
-              className={cx('nav-link', activeLink === link.href && 'active')}
-              onClick={() => setActiveLink(link.href)}
+              className={cx('nav-link', activeLink === link.id && 'active')}
+              onClick={() => scrollToSection(link.id)}
             >
               {link.name}
-            </a>
+            </button>
           ))}
         </div>
 
@@ -100,18 +112,14 @@ const Navbar = () => {
       <div className={cx('mobile-drawer glass-panel', isMobileMenuOpen && 'open')}>
         <div className="mobile-drawer-content">
           {navLinks.map((link, index) => (
-            <a
+            <button
               key={link.name}
-              href={link.href}
-              className={cx('mobile-nav-link', activeLink === link.href && 'active')}
+              className={cx('mobile-nav-link', activeLink === link.id && 'active')}
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() => {
-                setActiveLink(link.href);
-                closeMobileMenu();
-              }}
+              onClick={() => handleNavClick(link.id)}
             >
               {link.name}
-            </a>
+            </button>
           ))}
           <div className="mobile-cta-wrapper" style={{ animationDelay: `${navLinks.length * 0.1}s` }}>
             <Button variant="primary" size="lg" className="w-full" onClick={closeMobileMenu}>
