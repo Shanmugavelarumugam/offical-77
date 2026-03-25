@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Menu, X, Dumbbell } from 'lucide-react';
 import Container from '../ui/Container';
 import Button from '../ui/Button';
@@ -16,14 +16,26 @@ const navLinks = [
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeLink, setActiveLink] = useState('#home');
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
       
-      // Update active link based on scroll position - simple version
+      // Show/hide based on scroll direction
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false); // Scrolling down - hide
+      } else {
+        setIsVisible(true); // Scrolling up - show
+      }
+      
+      lastScrollY.current = currentScrollY;
+      setIsScrolled(currentScrollY > 20);
+      
+      // Update active link based on scroll position
       const sections = navLinks.map(link => link.href.substring(1));
       
       for (const section of sections) {
@@ -38,7 +50,7 @@ const Navbar = () => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -47,7 +59,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={cx('navbar', isScrolled && 'navbar-scrolled glass-panel')}>
+    <nav className={cx('navbar', isScrolled && 'navbar-scrolled', !isVisible && 'navbar-hidden', 'glass-panel')}>
       <Container className="navbar-container">
         {/* Logo */}
         <a href="#home" className="navbar-logo" onClick={closeMobileMenu}>

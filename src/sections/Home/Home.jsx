@@ -1,7 +1,6 @@
 import Container from '../../components/ui/Container';
 import Button from '../../components/ui/Button';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import './Home.css';
 
 const fadeUpVariant = {
@@ -20,18 +19,8 @@ const staggerContainer = {
 };
 
 const Home = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  });
-
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
-    <section id="home" className="home" ref={ref}>
+    <section id="home" className="home">
       {/* Background Orbs */}
       <motion.div 
         className="hero-glow hero-glow-1"
@@ -48,7 +37,6 @@ const Home = () => {
         {/* Left Column - Text Content */}
         <motion.div 
           className="home-text-col"
-          style={{ y: textY, opacity }}
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
@@ -83,7 +71,6 @@ const Home = () => {
           initial={{ opacity: 0, x: 40 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          style={{ y: backgroundY }}
         >
           <div className="home-image-wrapper">
             <img 
